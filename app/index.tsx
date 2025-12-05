@@ -12,9 +12,9 @@ export default function Index() {
   const getNextId = () => {
     if (items.length == 0) return "1";
 
-    const lastId = parseInt(items[items.length - 1].id);
+    const lastId = items.sort((a, b) => parseInt(b.id) - parseInt(a.id))[0].id;
 
-    return (lastId + 1).toString();
+    return (parseInt(lastId) + 1).toString();
   };
 
   const addNewItem = () => {

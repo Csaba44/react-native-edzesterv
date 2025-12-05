@@ -8,7 +8,6 @@ type ExcerciseItemProps = {
 };
 
 export default function ExcerciesItem({ item, setItemDone, index }: ExcerciseItemProps) {
-  console.log(item);
   const currStyle = item.isDone ? styles.done : styles.undone;
 
   return (
