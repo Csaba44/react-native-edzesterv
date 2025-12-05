@@ -10,14 +10,14 @@ export default function Index() {
   // Nem kell state legyen, mert re-render után megváltozik az értéke
   const itemsDoneCount = items.filter((item) => item.isDone).length;
 
-
   const addNewItem = () => {
     if (itemName.trim().length == 0) {
       return alert("Adj meg gyakorlat nevet.");
     }
 
-    // Elmentem a következő ID-t változóba (ez lesz az id-ja az új elemnek)
-    const newItem: Item = { name: itemName, isDone: false };
+    // Elmentem a következő ID-t változóba, ez a lista hossz + 1.
+    const nextId = items.length < 1 ? "1" : (items.length + 1).toString();
+    const newItem: Item = { id: nextId, name: itemName, isDone: false };
     // Lemásolom az "items" listát, és az új itemet berakom a végére.
     let newList = [...items, newItem];
     // Beállitom az items state-et, a isDone alapján sorrendbe
@@ -61,7 +61,7 @@ export default function Index() {
         gyakorlat kész
       </Text>
 
-      <FlatList data={items} renderItem={({ item, index }) => <ExcerciesItem item={item} index={index} setItemDone={setItemDone}></ExcerciesItem>} keyExtractor={(item, index) => index.toString()}></FlatList>
+      <View style={styles.container}>{items.length > 0 ? <FlatList style={styles.flatList} data={items} renderItem={({ item, index }) => <ExcerciesItem item={item} index={index} setItemDone={setItemDone}></ExcerciesItem>} keyExtractor={(item) => item.id}></FlatList> : <Text style={styles.container}>Nincs megjelníthető gyakorlat.</Text>}</View>
     </View>
   );
 }
@@ -75,12 +75,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 30
   },
   inputGroup: {
     flex: 1,
     flexDirection: "row",
     gap: 10,
     marginTop: 20,
+    maxHeight: 150
   },
   textInput: {
     backgroundColor: "#a8a8a8ff",
@@ -99,4 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     minWidth: 150,
   },
+  flatList: {
+    paddingHorizontal: 10,
+  }
 });
