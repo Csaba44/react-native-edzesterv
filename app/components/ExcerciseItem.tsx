@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import Item from "../types/Item";
-
+import { Item } from "../types/Item";
 type ExcerciseItemProps = {
   item: Item;
   setItemDone: (index: number) => void;
